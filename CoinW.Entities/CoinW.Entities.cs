@@ -13,6 +13,12 @@ public enum ErrorCode
     SignatureError = 10007
 }
 
+public class AllBalances
+{
+    public string available;
+    public string onOrders;
+}
+
 public class MainResponse<T>
 {
     public string code;
