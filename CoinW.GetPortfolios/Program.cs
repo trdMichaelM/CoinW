@@ -51,7 +51,7 @@ public class Connector
         if (responseMessage.IsSuccessStatusCode)
         {
             string responseBody = responseMessage.Content.ReadAsStringAsync().Result;
-            AvailableBalance = JsonConvert.DeserializeObject<MainResponse<Dictionary<string, string>>>(responseBody).data;
+            AvailableBalance = JsonConvert.DeserializeObject<APIResponse<Dictionary<string, string>>>(responseBody).data;
         }
         else
         {
@@ -63,7 +63,7 @@ public class Connector
         if (responseMessage.IsSuccessStatusCode)
         {
             string responseBody = responseMessage.Content.ReadAsStringAsync().Result;
-            AllBalances = JsonConvert.DeserializeObject<MainResponse<Dictionary<string, AllBalances>>>(responseBody).data;
+            AllBalances = JsonConvert.DeserializeObject<APIResponse<Dictionary<string, AllBalances>>>(responseBody).data;
         }
         else
         {

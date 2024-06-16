@@ -26,15 +26,15 @@ public class Connector
         HttpResponseMessage httpResponseMessage = httpClient.GetAsync(httpUrl + tradingPairUrl).Result;
         string response = httpResponseMessage.Content.ReadAsStringAsync().Result;
         //MainResponse = JsonConvert.DeserializeAnonymousType<MainResponse>(Json, new MainResponse());
-        TradingPairs = JsonConvert.DeserializeObject<MainResponse<List<TradingPair>>>(response).data;
+        TradingPairs = JsonConvert.DeserializeObject<APIResponse<List<TradingPair>>>(response).data;
 
         httpResponseMessage = httpClient.GetAsync(httpUrl + coinInformationUrl).Result;
         response = httpResponseMessage.Content.ReadAsStringAsync().Result;
-        Coins = JsonConvert.DeserializeObject<MainResponse<Dictionary<string, Coin>>>(response).data;
+        Coins = JsonConvert.DeserializeObject<APIResponse<Dictionary<string, Coin>>>(response).data;
 
         httpResponseMessage = httpClient.GetAsync(httpUrl + tradingPairInformationUrl).Result;
         response = httpResponseMessage.Content.ReadAsStringAsync().Result;
-        TradingPairsInformation = JsonConvert.DeserializeObject<MainResponse<Dictionary<string, TradingPairInformation>>>(response).data;
+        TradingPairsInformation = JsonConvert.DeserializeObject<APIResponse<Dictionary<string, TradingPairInformation>>>(response).data;
     }
 }
 

@@ -19,7 +19,7 @@ public class AllBalances
     public string onOrders;
 }
 
-public class MainResponse<T>
+public class APIResponse<T>
 {
     public string code;
     public T data;
