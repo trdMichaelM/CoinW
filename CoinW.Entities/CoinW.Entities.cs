@@ -13,6 +13,16 @@ public enum ErrorCode
     SignatureError = 10007
 }
 
+public class WebSocketInformation
+{
+    public string token;
+    public string endpoint;
+    public string protocol;
+    public string timestamp;
+    public string expiredTime;
+    public string pingInterval;
+}
+
 public class AllBalances
 {
     public string available;
