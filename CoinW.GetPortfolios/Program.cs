@@ -18,7 +18,7 @@ public class Connector
     private const string allBalancesUrl = "/api/v1/private?command=returnCompleteBalances";
 
     private string apiKey = Key.apiKey;
-    private string secreteKey = Key.secreteKey;
+    private string secretKey = Key.secreteKey;
 
     public Dictionary<string, string> AvailableBalance { get; set; }
     public Dictionary<string, AllBalances> AllBalances { get; set; }
@@ -39,7 +39,7 @@ public class Connector
             signString += "&";
         }
 
-        signString += $"secret_key={secreteKey}";
+        signString += $"secret_key={secretKey}";
 
         string signature = CreateMD5(signString);
 
