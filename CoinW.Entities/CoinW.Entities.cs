@@ -1,4 +1,7 @@
-﻿namespace CoinW.Entities;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace CoinW.Entities;
 
 public enum ErrorCode
 {
@@ -11,6 +14,33 @@ public enum ErrorCode
     NoWithdrawPermission = 10005,
     ApiKeyError = 10006,
     SignatureError = 10007
+}
+
+public class SubscriptionData
+{
+    [JsonProperty("channel")]
+    public string Channel { get; set; }
+
+    [JsonProperty("subject")]
+    public string Subject { get; set; }
+
+    [JsonProperty("data")]
+    public string Data { get; set; }
+}
+
+public class MarketData
+{
+    [JsonProperty("startSeq")]
+    public string StartSeq { get; set; }
+
+    [JsonProperty("endSeq")]
+    public string EndSeq { get; set; }
+
+    [JsonProperty("asks")]
+    public List<List<string>> Asks { get; set; }
+
+    [JsonProperty("bids")]
+    public List<List<string>> Bids { get; set; }
 }
 
 public class WebSocketInformation

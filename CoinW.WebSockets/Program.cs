@@ -69,7 +69,20 @@ namespace CoinW.WebSockets
             }
             else if (message.StartsWith("42")) // Event message
             {
-                Console.WriteLine($"Event received: {message}");
+                //42["subscribe",{ "channel":"spot/level2:BTC-USDT","subject":"spot/level2","data":"{\"startSeq\":3818617089,\"endSeq\":3818617091,\"asks\":[[\"61022.17\",\"0.2432\",\"3818617091\"]],\"bids\":[[\"61021.12\",\"1.2939\",\"3818617089\"],[\"61019.94\",\"0.2966\",\"3818617090\"]]}"}]
+                // Извлечение части строки с JSON-объектом
+                int startIndex = message.IndexOf('{');
+                int endIndex = message.LastIndexOf('}');
+                string json = message.Substring(startIndex, endIndex - startIndex + 1);
+
+                // Декодирование вложенного JSON
+                var subscriptionData = JsonConvert.DeserializeObject<SubscriptionData>(json);
+                Console.WriteLine(subscriptionData.Channel); // spot/level2:BTC-USDT
+                Console.WriteLine(subscriptionData.Subject); // spot/level2
+                Console.WriteLine(subscriptionData.Data); // {"startSeq":3818717270,"endSeq":3818717270,"asks":[],"bids":[["60947.34","0.0000","3818717270"]]}
+                Console.WriteLine();
+
+                var marketData = JsonConvert.DeserializeObject<MarketData>(subscriptionData.Data);
             }
             else
             {
@@ -89,7 +102,9 @@ namespace CoinW.WebSockets
         {
             if (socket.State == WebSocketState.Open)
             {
-                string subscribeMessage = $"42[\"subscribe\",{{\"args\":\"spot/market-api-ticker:{symbol}\"}}]";
+                //string subscribeMessage = $"42[\"subscribe\",{{\"args\":\"spot/market-api-ticker:{symbol}\"}}]";
+                string subscribeMessage = $"42[\"subscribe\",{{\"args\":\"spot/level2:{symbol}\"}}]";
+                //string subscribeMessage = $"42[\"subscribe\",{{\"args\":\"spot/match:{symbol}\"}}]";
                 socket.Send(subscribeMessage);
                 Console.WriteLine($"Subscribed to: {symbol}");
             }
